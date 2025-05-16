@@ -1,0 +1,15 @@
+-- CREATE TABLE IF NOT EXISTS users (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     telegram_id VARCHAR(50) UNIQUE NOT NULL,
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- CREATE TABLE IF NOT EXISTS transactions (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     telegram_id VARCHAR(50),
+--     type ENUM('income', 'expense') NOT NULL,
+--     amount INT NOT NULL,
+--     description TEXT,
+--     date DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (telegram_id) REFERENCES users(telegram_id)
+-- );
