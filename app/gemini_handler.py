@@ -5,6 +5,42 @@ import re
 
 genai.configure(api_key=Config.GEMINI_API_KEY)
 
+# def analyze_user_message(message_text):
+#     model = genai.GenerativeModel("gemini-2.0-flash")
+    
+#     prompt = f"""
+#     Analisis pesan ini dari pengguna chatbot keuangan:
+#     "{message_text}"
+
+#     Jawab dalam format JSON sederhana:
+#     {{
+#         "intent": "income / expense / balance / summary / help / unknown",
+#         "amount": number,
+#         "description": string
+#     }}
+
+#     Contoh:
+#     Pesan: "Hari ini aku beli baju Rp150.000"
+#     Output: {{
+#       "intent": "expense",
+#       "amount": 150000,
+#       "description": "beli baju"
+#     }}
+#     """
+
+#     try:
+#         response = model.generate_content(prompt)
+        
+#         # Cari JSON di dalam respons teks
+#         json_text = re.search(r"\{.*\}", response.text, re.DOTALL)
+#         if json_text:
+#             return json.loads(json_text.group())
+#         else:
+#             print("❗️Tidak ditemukan JSON dalam respons Gemini")
+#             return {"intent": "unknown"}
+#     except Exception as e:
+#         print("Error with Gemini:", e)
+#         return {"intent": "unknown"}
 def analyze_user_message(message_text):
     model = genai.GenerativeModel("gemini-2.0-flash")
     
@@ -31,17 +67,29 @@ def analyze_user_message(message_text):
     try:
         response = model.generate_content(prompt)
         
-        # Cari JSON di dalam respons teks
+        # Coba temukan JSON dalam teks respons
         json_text = re.search(r"\{.*\}", response.text, re.DOTALL)
+        
         if json_text:
-            return json.loads(json_text.group())
+            try:
+                result = json.loads(json_text.group())
+                
+                # Validasi struktur minimal JSON
+                if "intent" in result and result["intent"] in ["income", "expense", "balance", "summary", "help"]:
+                    return result
+                else:
+                    print("❗️Format JSON tidak sesuai")
+                    return {"intent": "unknown"}
+            except json.JSONDecodeError as je:
+                print(f"❌ Gagal parsing JSON: {je}")
+                return {"intent": "unknown"}
         else:
             print("❗️Tidak ditemukan JSON dalam respons Gemini")
             return {"intent": "unknown"}
+            
     except Exception as e:
-        print("Error with Gemini:", e)
+        print("🚨 Error dengan Gemini:", e)
         return {"intent": "unknown"}
-
 
 def generate_financial_tips(transactions_summary):
     model = genai.GenerativeModel("gemini-2.0-flash")
