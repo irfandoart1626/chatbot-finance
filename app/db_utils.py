@@ -317,10 +317,15 @@ from psycopg2.extras import RealDictCursor
 from app.config import Config
 
 
-# --- FUNGSI UTAMA DATABASE ---
 def get_db_connection():
-    """Membuat koneksi ke database dengan cursor berbasis dictionary."""
-    return psycopg2.connect(**Config.DB_CONFIG, cursor_factory=RealDictCursor)
+    """Membuat koneksi ke database menggunakan DATABASE_URL."""
+    if not Config.DATABASE_URL:
+        raise ValueError("DATABASE_URL tidak tersedia di environment variables.")
+    
+    return psycopg2.connect(
+        Config.DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
 
 def initialize_database():

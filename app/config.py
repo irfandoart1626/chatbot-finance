@@ -16,19 +16,17 @@
 
 #     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
+
+# app/config.py
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 class Config:
-    DB_CONFIG = {
-        'host': os.getenv('DB_HOST'),
-        'user': os.getenv('DB_USER'),
-        'password': os.getenv('DB_PASSWORD'),
-        'database': os.getenv('DB_NAME'),
-        'port': int(os.getenv('DB_PORT', 5432)),
-    }
-
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    # Bot & Gemini
     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+    # Database
+    DATABASE_URL = os.getenv("DATABASE_URL")  # ✅ Gunakan ini saja
