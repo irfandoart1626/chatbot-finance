@@ -3,7 +3,7 @@ import asyncio
 import httpx
 from app.config import Config
 
-KEEP_ALIVE_URL = "https://chatbot-finance-production.up.railway.app/keep-alive"
+KEEP_ALIVE_URL = "https://chatbot-finance-production.up.railway.app/api/keep-alive"
 INTERVAL = 300  # Detik
 
 async def keep_alive_task():
