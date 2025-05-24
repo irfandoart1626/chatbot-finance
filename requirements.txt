@@ -8,3 +8,5 @@ babel==2.12.1
 
 # Database
 psycopg2-binary==2.9.9
+# Untuk keep-alive task async
+httpx>=0.23.0

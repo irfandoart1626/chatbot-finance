@@ -35,3 +35,11 @@ async def monthly_summary(telegram_id: str):
         "total_expense": format_money(summary["total_expense"]),
         "remaining": format_money(summary["total_income"] - summary["total_expense"])
     }
+
+# --- Keep-Alive Endpoint ---
+@router.get("/keep-alive")
+async def keep_alive():
+    """
+    Endpoint untuk keep-alive (digunakan oleh Uptime Checker)
+    """
+    return {"status": "ok"}
