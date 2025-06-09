@@ -116,17 +116,22 @@ def generate_financial_tips(transactions_summary):
     Berdasarkan ringkasan transaksi berikut:
     {transactions_summary}
 
-    Buatlah saran keuangan harian yang singkat, jelas, dan informatif.
-    Saran ini ditujukan khusus untuk orang dewasa.
-    Hindari gaya bahasa kekanak-kanakan, jangan gunakan emoji, dan fokus pada hal yang praktis.
-    Gunakan bahasa Indonesia yang mudah dipahami.
+    Buat saran keuangan harian dalam bahasa Indonesia, ditujukan untuk orang dewasa.
+    
+    Formatkan hasilnya agar cocok untuk dikirim melalui Telegram, menggunakan format Markdown Telegram:
+    - Setiap tips dimulai dengan **judul singkat yang ditebalkan** (gunakan tanda `**` sebelum dan sesudah judul).
+    - Diikuti penjelasan dalam paragraf singkat di bawahnya.
+    - Jangan gunakan emoji atau gaya bahasa kekanak-kanakan.
+    - Gunakan bahasa yang padat, sopan, dan informatif.
     """
     
     try:
         response = model.generate_content(prompt)
         return response.text.strip()
-    except Exception as e:
+    except Exception:
         return "Maaf, saat ini tidak bisa memberikan saran keuangan."
+
+
 
 
 def answer_general_question(question):
