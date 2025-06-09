@@ -91,22 +91,42 @@ def analyze_user_message(message_text):
         print("🚨 Error dengan Gemini:", e)
         return {"intent": "unknown"}
 
+# def generate_financial_tips(transactions_summary):
+#     model = genai.GenerativeModel("gemini-2.0-flash")
+    
+#     prompt = f"""
+#     Berdasarkan riwayat transaksi berikut:
+#     {transactions_summary}
+
+#     Tulis saran keuangan harian dalam bahasa Indonesia yang mudah dipahami oleh anak-anak hingga orang tua.
+#     Gunakan emoji dan gaya ramah.
+#     """
+    
+#     try:
+#         response = model.generate_content(prompt)
+#         return response.text.strip()
+#     except Exception as e:
+#         return "Maaf, saya tidak bisa memberikan saran saat ini 😅"
+
+
 def generate_financial_tips(transactions_summary):
     model = genai.GenerativeModel("gemini-2.0-flash")
     
     prompt = f"""
-    Berdasarkan riwayat transaksi berikut:
+    Berdasarkan ringkasan transaksi berikut:
     {transactions_summary}
 
-    Tulis saran keuangan harian dalam bahasa Indonesia yang mudah dipahami oleh anak-anak hingga orang tua.
-    Gunakan emoji dan gaya ramah.
+    Buatlah saran keuangan harian yang singkat, jelas, dan informatif.
+    Saran ini ditujukan khusus untuk orang dewasa.
+    Hindari gaya bahasa kekanak-kanakan, jangan gunakan emoji, dan fokus pada hal yang praktis.
+    Gunakan bahasa Indonesia yang mudah dipahami.
     """
     
     try:
         response = model.generate_content(prompt)
         return response.text.strip()
     except Exception as e:
-        return "Maaf, saya tidak bisa memberikan saran saat ini 😅"
+        return "Maaf, saat ini tidak bisa memberikan saran keuangan."
 
 
 def answer_general_question(question):
