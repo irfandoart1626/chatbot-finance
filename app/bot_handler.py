@@ -133,7 +133,10 @@ async def run_telegram_bot():
 async def shutdown_telegram_bot():
     global application
     if application:
-        await application.updater.stop()
-        await application.stop()
-        await application.shutdown()
-        print("✅ Bot Telegram dihentikan.")
+        try:
+            await application.stop()
+            await application.shutdown()
+            print("✅ Bot Telegram dihentikan dengan sukses.")
+        except RuntimeError as e:
+            print(f"⚠️ Saat shutdown: {e}")
+
